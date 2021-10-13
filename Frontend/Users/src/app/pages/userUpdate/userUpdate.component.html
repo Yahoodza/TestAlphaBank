@@ -1,0 +1,8 @@
+<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="Изменить данные о пользователе" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <span>ФИО:</span>
+    <input [(ngModel)]="user.fio" class="indent" nz-input placeholder="Иванов Иван Иванович" nzSize="large" />
+    <span>Логин:</span>
+    <input [(ngModel)]="user.userLogin" nz-input placeholder="LoginExample223" nzSize="large" />
+  </ng-container>
+</nz-modal>

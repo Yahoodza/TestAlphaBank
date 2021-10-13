@@ -1,0 +1,41 @@
+<ng-container *ngIf="userList$ | async as userList; else nullUsers">
+  <nz-table #basicTable [nzData]="userList">
+    <thead>
+      <tr>
+        <th>ФИО</th>
+        <th>Логин</th>
+        <th>Дата добавления</th>
+        <th>Действие</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dataUser of basicTable.data">
+        <td>{{ dataUser.fio }}</td>
+        <td>{{ dataUser.userLogin }}</td>
+        <td>{{ datepipe.transform(dataUser.dateAddUser, 'dd MMM YYYY HH:mm:ss') }}</td>
+        <td>
+          <button nz-button nzType="primary"
+                  (click)="showModalUpdateUser(); userValueUpdate(dataUser)">Изменить</button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button nz-button nzType="primary" nzDanger
+                  (click)="deleteUser(dataUser.id)">Удалить</button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-container>
+
+<ng-template #nullUsers>
+  <div>
+    Данные отсутствуют!!!
+  </div>
+</ng-template>
+
+<app-userAdd [isVisibleAdd] = visibleAdd 
+              (onClickShowAdd) = "isVisibleAddModal($event)"
+              (onClickAdd) = "userAdd($event)"></app-userAdd>
+
+<app-userUpdate [isVisibleUpdate] = visibleUpdate
+                [user] = userUpdateValue
+                (onClickShowUpdate) = "isVisibleUpdateModal($event)"
+                (onClickUpdate) = "userUpdate($event)"></app-userUpdate>

@@ -1,0 +1,52 @@
+<nz-layout>
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="270px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a target="_blank">
+        <h1>Пользователи</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <!-- <ul class="menuItemSearch">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input type="text" nz-input placeholder="поиск" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template>
+      </ul> -->
+      <li nz-menu-item (click)="child.showModalAddUser()">Добавить</li>
+      <li class="excel" nz-menu-item (click)="child.createExcel()">Экспортировать в Excel</li>
+      <li class="deleteAll" nz-menu-item (click)="child.deleteAllUser()">Удалить всё</li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <div>
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+              nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'">
+            </i>
+          </span>
+        </div>
+        <div class="middle-header">
+          <!-- header -->
+        </div>
+      </div>
+    </nz-header>
+    <nz-layout>
+      <nz-content class="container">
+        <div class="inner-content">
+          <h2>Список пользователей</h2>
+            <app-usersTable></app-usersTable>
+          <!-- content -->
+        </div>
+      </nz-content>
+</nz-layout>
+
