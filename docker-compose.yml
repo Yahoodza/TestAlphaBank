@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # Прокси сервер
+  nginx:
+    container_name: reverse_proxy
+    image: nginx
+    ports:
+      - 6200:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - server
+      - web
+  # База данных
+  database:
+    container_name: database
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    volumes:
+      - ./Database:/var/opt/mssql/data
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Pa55word2021"
+      MSSQL_PID: Express
+    ports:
+      - 1433:1433
+  # Серверная часть
+  backend:
+    container_name: backend
+    image: backend-image
+    build:
+      context: ./Backend/
+      dockerfile: UsersAPI/Dockerfile
+    # ports:
+    #   - 5200:5200
+    depends_on:
+      - database
+  # Клиентская часть
+  frontend:
+    container_name: frontend
+    image: frontend-image
+    build:
+      context: ./Frontend/Users/
+      dockerfile: Dockerfile
+    volumes:
+      - ./Frontend/Users:/front/app
+    environment:
+      NODE_ENV: production
+    # ports:
+    #   - 4200:4200
+    depends_on:
+      - server
