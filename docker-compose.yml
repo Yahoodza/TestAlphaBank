@@ -10,8 +10,8 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - server
-      - web
+      - backend
+      - frontend
   # База данных
   database:
     container_name: database
@@ -49,4 +49,4 @@ services:
     # ports:
     #   - 4200:4200
     depends_on:
-      - server
+      - backend
