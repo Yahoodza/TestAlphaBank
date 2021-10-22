@@ -45,7 +45,7 @@ services:
     volumes:
       - ./Frontend/Users:/front/app
     environment:
-      NODE_ENV: production
+      NODE_ENV: dev
     # ports:
     #   - 4200:4200
     depends_on:
