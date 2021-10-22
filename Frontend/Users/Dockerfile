@@ -1,7 +1,8 @@
-FROM node:alpine
+FROM node:14-alpine
 
-WORKDIR /front/
 COPY package*.json /front/
+WORKDIR /front/
+
 RUN npm install
 RUN npm install -g @angular/cli
 
